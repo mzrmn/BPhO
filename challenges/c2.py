@@ -11,7 +11,7 @@ g = float(input("Strength of gravity, g (N kg-1): "))
 # launchangle = launchangle * (math.pi/180)
 launchangle = math.radians(launchangle)
 
-# timestep = float(input("Time step: "))
+# timestep = 0.02
 u = launchspeed
 ux = u * math.cos(launchangle)
 uy = u * math.sin(launchangle)
@@ -30,11 +30,12 @@ xa = (u**2 / g) * math.sin(launchangle) * math.cos(launchangle)
 ya = launchheight + (u**2)/(2 * g) * (math.sin(launchangle)**2)
 
 plt.grid()
-plt.xlim([0,12])
-plt.ylim([0,3.5])
 
 plt.plot(x, y)
 plt.plot(xa, ya, "x")
+
+plt.xlim(left=0)
+plt.ylim(bottom=0)
 
 plt.xlabel("x/m")
 plt.ylabel("y/m")
