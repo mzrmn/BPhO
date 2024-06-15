@@ -1,3 +1,3 @@
 # BPhO
 
-# Submission for BPhO Computational Challenge 2024
+Submission for BPhO Computational Challenge 2024
