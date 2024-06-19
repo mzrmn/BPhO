@@ -1,72 +1,63 @@
 import math
-
+ 
 import matplotlib.pyplot as plt
 import numpy as np
+ 
+#inputs are u, h, g, theta
+ 
+#launchSpeed
+u = float(input("Launch speed (ms^-1): "))
+#launchHeight
+h = float(input("Height above ground (m): "))
+#gravity
+g = float(input("gravity (ms^-2): "))
+#launchAngle
+theta = float(input("Launch angle (degrees): "))
+ 
+theta = math.radians(theta) # works when converting to radians and idk why
+ 
+ 
+R_Normal = (u**2/ g) * ((math.sin(theta) * math.cos(theta)) + (math.cos(theta) * math.sqrt((math.sin(theta) ** 2) + (2*g*h) / (u**2))))
+ 
+print(R_Normal)
+#MAX HEIGHT CALCULATIONS
+ 
+theta_Max = math.asin(1 / math.sqrt(2 + (2 * g * h) / (u ** 2)))
+theta_Max = math.degrees(theta_Max)
+R_Max = (u ** 2 / g) * math.sqrt(1 + (2 * g * h) / u ** 2)
+ 
+print(theta_Max)
+print(R_Max)
+ 
+X_Normal = np.linspace(0, R_Normal)
+ 
+#y_Max is the max height for Max Range Trajectory, not max possible height
+y_Normal = h + X_Normal * math.tan(theta) - (g * X_Normal**2) / (2 * (u * math.cos(theta))**2) #y equation from challenge 3
+ 
+theta_Max = math.radians(theta_Max)
+x_Max = np.linspace(0, R_Max, num=500)
+y_Max = h + x_Max * math.tan(theta_Max) - (g * x_Max**2) / (2 * (u * math.cos(theta_Max))**2)
+ 
+plt.plot(X_Normal, y_Normal, label="Normal Trajectory")
+plt.plot(x_Max, y_Max,"-",label = "Max Range Trajectory")
+#plotting actual max and normal point
 
-target_x = int(input("X coord: "))
-target_y = int(input("Y coord: "))
-# launchangle = float(input("Launch angle (deg): "))
-launchspeed = float(input("Launch speed (ms^-1): "))
-# launchheight = float(input("Launch elevation (m): "))
-launchheight = 0
-g = float(input("g (ms^-2): "))
+plt.plot(R_Normal,0,"oy") # plt.annotate("(X, Y)", (target_x, target_y), textcoords="offset points", xytext=(20, -10), ha='center')
+plt.plot(R_Max,0,"oy")
 
-# launchangle = launchangle * (math.pi/180)
-# launchangle = math.radians(launchangle)
+norm = "(" + str(int(R_Normal)) + ",0)"
+max = "(" + str(int(R_Max)) + ",0)"
 
-# timestep = 0.02
-
-min_u = math.sqrt(g) * math.sqrt(target_y + math.sqrt(target_x**2 + target_y**2))
-
-u = launchspeed
-
-a = (g / (2*(u**2))) * target_x**2
-b = -target_x
-c = target_y - launchheight + ((g*(target_x**2)) / (2*(u**2)))
-
-discriminant = b**2 - (4 * a * c)
-# range = ((u**2)/g) * ((math.sin(launchangle) * math.cos(launchangle)) + (math.cos(launchangle) * math.sqrt((math.sin(launchangle)**2) + (2 * g * launchheight)/(u**2))))
-x = np.linspace(0, target_x)
-
-# high ball
-high_angle = math.atan((-b + math.sqrt(discriminant)) / (2 * a))
-high_time = x / (u * math.cos(high_angle))
-y_high = launchheight + (x * math.tan(high_angle)) - ((g/(2*(u**2))) * (1 + (math.tan(high_angle)**2)) * x**2)
-
-# low ball
-low_angle = math.atan((-b - math.sqrt(discriminant)) / (2 * a))
-low_time = x / (u * math.cos(low_angle))
-y_low = launchheight + (x * math.tan(low_angle)) - ((g/(2*(u**2))) * (1 + (math.tan(low_angle)**2)) * x**2)
-
-# min
-min_angle = math.atan((target_y + math.sqrt(target_x**2 + target_y**2)) / target_x)
-min_time = x / (min_u * math.cos(min_angle))
-y_min = launchheight + (x * math.tan(min_angle)) - ((g/(2*(min_u**2))) * (1 + (math.tan(min_angle)**2)) * x**2)
-
-# ux = u * math.cos(launchangle)
-# uy = u * math.sin(launchangle)
-
-# vx = ux
-# vy = uy - (g * t)
-# v = math.sqrt((vx**2) + (vy**2))
-
-# xa = (u**2 / g) * math.sin(launchangle) * math.cos(launchangle)
-# ya = launchheight + (u**2)/(2 * g) * (math.sin(launchangle)**2)
-
-plt.grid()
-
-plt.plot(x, y_high, label="high ball")
-plt.plot(x, y_low, label="low ball")
-plt.plot(x, y_min, label="min u")
-plt.legend(loc="upper right")
-# plt.plot(xa, ya, "x")
-plt.plot(target_x, target_y, "oy")
-plt.annotate("(X, Y)", (target_x, target_y), textcoords="offset points", xytext=(20, -10), ha='center')
-
-plt.xlim(left=0)
-plt.ylim(bottom=launchheight)
+plt.annotate(norm, (R_Normal, 0), textcoords="offset points", xytext=(20, 15), ha='center')
+plt.annotate(max, (R_Max, 0), textcoords="offset points", xytext=(20, 15), ha='center')
 
 plt.xlabel("x/m")
 plt.ylabel("y/m")
 
+plt.xlim(left = 0)
+plt.ylim(bottom = 0)
+ 
+plt.title('Projectile Trajectory - Normal vs Max Range')
+plt.legend(loc="upper right")
+plt.grid()
 plt.show()
