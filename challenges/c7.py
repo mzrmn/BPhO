@@ -43,6 +43,12 @@ for theta in theta_values:
     # plotting the trajectories
     plt.plot(X_Normal, y_Normal, label=f"Theta = {math.degrees(theta):.1f} degrees")
 
+#trying to scale axis 
+y_max = np.max(y_Normal) # method to scale is getting highest plot and using it to get lowest point like 5 with -5 or 10 with -10
+y_min = -(y_max) 
+
+plt.ylim(bottom=y_min , top=y_max)
+
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
 plt.title("Projectile Trajectory for Different Launch Angles")
@@ -50,3 +56,4 @@ plt.legend(loc="upper right")
 plt.grid()
 
 plt.show()
+
