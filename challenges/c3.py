@@ -61,7 +61,7 @@ plt.plot(x, y_min, label="min u")
 plt.legend(loc="upper right")
 # plt.plot(xa, ya, "x")
 plt.plot(target_x, target_y, "oy")
-plt.annotate("(X, Y)", (target_x, target_y), textcoords="offset points", xytext=(20, -10), ha='center')
+plt.annotate(f"({target_x}, {target_y})", (target_x, target_y), textcoords="offset points", xytext=(20, -10), ha='center')
 
 plt.xlim(left=0)
 plt.ylim(bottom=launchheight)

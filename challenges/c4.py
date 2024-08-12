@@ -14,11 +14,11 @@ g = float(input("gravity (ms^-2): "))
 #launchAngle
 theta = float(input("Launch angle (degrees): "))
  
-theta = math.radians(theta) # works when converting to radians and idk why
+theta = math.radians(theta)
  
  
 R_Normal = (u**2/ g) * ((math.sin(theta) * math.cos(theta)) + (math.cos(theta) * math.sqrt((math.sin(theta) ** 2) + (2*g*h) / (u**2))))
- 
+
 print(R_Normal)
 #MAX HEIGHT CALCULATIONS
  
@@ -30,7 +30,7 @@ print(theta_Max)
 print(R_Max)
  
 X_Normal = np.linspace(0, R_Normal)
- 
+
 #y_Max is the max height for Max Range Trajectory, not max possible height
 y_Normal = h + X_Normal * math.tan(theta) - (g * X_Normal**2) / (2 * (u * math.cos(theta))**2) #y equation from challenge 3
  

@@ -25,10 +25,11 @@ x = ux * t
 y = launchheight + (uy * t) - ((1/2) * g * (t**2))
 
 plt.grid()
-plt.xlim([0,50])
-plt.ylim([0,14])
 
 plt.plot(x, y)
+
+plt.xlim([0,50])
+plt.ylim([0,14])
 
 plt.xlabel("x/m")
 plt.ylabel("y/m")

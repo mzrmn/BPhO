@@ -2,7 +2,7 @@ import math
  
 import matplotlib.pyplot as plt
 import numpy as np
- 
+
 target_x = int(input("X coord: "))
 target_y = int(input("Y coord: "))
 #launchSpeed
